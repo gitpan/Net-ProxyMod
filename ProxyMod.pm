@@ -41,7 +41,6 @@ use Carp;
 
 use IO::Socket;
 use IO::Select;
-use Data::Dumper;
 
 $VERSION = '0.02';
 
@@ -96,8 +95,6 @@ sub _init
     }
 
     $do_debug = $self->{-debug};
-
-    _debug(Dumper($self));
 
     # setup the proxy socket
     $self->{MAIN} = IO::Socket::INET->new(
