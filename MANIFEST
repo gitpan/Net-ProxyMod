@@ -1,5 +1,6 @@
 Changes
-MANIFEST
 Makefile.PL
+MANIFEST
 ProxyMod.pm
-test.pl
+README
+t/load.t

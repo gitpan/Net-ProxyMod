@@ -1,5 +1,12 @@
-Revision history for Perl extension Net::TProxyMod.
+Revision history for Perl extension Net::ProxyMod.
 
 0.01  Tue Jul 17 15:43:55 2001
 	- original version; created by h2xs 1.19
+	
+0.02  Mon Sep 08 
+    - added nonforking option 
+    - added named parameter interface
+    - polished pod
+    
+
 
