@@ -42,7 +42,7 @@ use Carp;
 use IO::Socket;
 use IO::Select;
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 my $do_debug = 0;
 
@@ -82,7 +82,7 @@ sub _init
 
     # care for unnamed and named params
     my $i = 0;
-    while (($_[$i] !=~ /^-/) && ($i < 5)) {
+    while (($_[0] !~ /^-/) && ($i < 5)) {
        $self->{$parnames[$i]} = shift;
        $i++;
     }

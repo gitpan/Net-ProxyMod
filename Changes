@@ -7,6 +7,9 @@ Revision history for Perl extension Net::ProxyMod.
     - added nonforking option 
     - added named parameter interface
     - polished pod
+
+0.03  Wed Sep 24
+    - bugfix parameter/non-parameter arguments
     
 
 
