@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2001,2003 Stephanie Wehner <_@r4k.net>
+# Copyright (c) 2001,2003,2004 Stephanie Wehner <_@r4k.net>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ use Carp;
 use IO::Socket;
 use IO::Select;
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 my $do_debug = 0;
 
@@ -155,7 +155,7 @@ sub _forking
     my $self = shift;
     my($infunc, $outfunc) = @_;
 
-    my($client, $remote, $pid);
+    my($client, $remote, $pid, $buf);
 
     _debug("Forking server started");
 
@@ -174,6 +174,8 @@ sub _forking
 
         # connect to remote host
         $remote = $self->_make_conn($client);
+        next unless $remote;
+        $remote->autoflush(1);
         _debug(
             "Remote connection to ",
             $remote->peerhost(),
@@ -207,11 +209,12 @@ sub _forking
         if ( $pid ) {                        # mum # 2
 
             select($client);
-            # turn off buffering
             $| = 1;
 
             # shovel data from remote to client
-            while(<$remote>) { print $infunc->($_); }
+            while($remote->sysread($buf, 1024, length($buf))) {
+                print $infunc->($buf);
+            }
 
             select(STDOUT);
             _debug(
@@ -231,7 +234,9 @@ sub _forking
             $| = 1;
 
             # shovel data from client to remote
-            while(<$client>) { print $outfunc->($_); }
+            while($client->sysread($buf, 1024, length($buf))) {
+                print $outfunc->($buf);
+            }
 
             select(STDOUT);
             _debug(
