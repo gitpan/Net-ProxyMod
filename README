@@ -1,0 +1,13 @@
+
+Net::ProxyMod    -    Small TCP proxy for packet alteration
+
+To install type:
+perl Makefile.PL
+make
+make install
+
+For documenation on how to use this package see perldoc Net::ProxyMod 
+after installation.
+
+- Stephanie Wehner <atrak@itsx.com> 
+
